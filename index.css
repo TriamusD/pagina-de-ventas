@@ -1,0 +1,320 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #F4F4F5;
+  
+}
+
+header {
+  background: black;
+  padding: 1rem;
+  color: white;
+  
+}
+
+.imgheader {
+  width: 100px;
+  height: 100px;
+  /*border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 255, 255, 0.4);
+  transition: transform 0.25s ease;*/
+  
+}
+
+/*.imgheader:hover{
+ transform: translateZ(10px) scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 255, 255, 0.7);}*/
+
+.busqueda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+  
+
+  input {
+    flex: 1;
+    min-width: 150px;
+    max-width: 400px;
+    padding: 5px;
+    border-radius: 6px;
+    border: 1px solid teal;
+  }
+
+  #btnbuscar {
+    padding: 5px 15px;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(green, darkgreen);
+    color: wheat;
+    cursor: pointer;
+  }
+
+.navegacion {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Lista del menú */
+.navegacion ul {
+  
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Enlaces del menú */
+.navegacion a {
+  
+  text-decoration: none;
+  color: wheat;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  display: inline-block;
+  line-height: 1.5;
+  position: relative;
+  transition: color 0.3s ease;
+}
+h1 {
+  text-align: center;
+  padding: 1rem 0;
+  border-bottom: 2px solid black;
+  background-color: white;
+}
+
+
+.contenedor {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  
+}
+
+section {
+  background-color: white;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+}
+
+
+
+img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px ;
+}
+.arreglosimg{
+  width: 230px;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.botones {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mas, .compras {
+  width: 20%;
+  
+  background: linear-gradient(green, darkgreen, black);
+  height: 32px;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.Regreso{
+  background: linear-gradient(green, darkgreen, black);
+  height: 32px;
+  border-radius: 7px;
+  color: wheat;
+}
+.btnregreso{
+  text-align: right;
+}
+
+.btnregreso2{
+  position: relative;
+  top: -32px;
+}
+body{
+  background: FAFAFA;
+}
+
+   .navegacion ul {
+      display: flex;
+      gap: 2rem ;
+      list-style: none;
+      padding: 0;
+      margin: 10px;
+      justify-content: center;
+      
+      align-items: center;
+    }
+    
+
+    .navegacion a {
+      text-decoration: none;
+      
+      position: relative;
+      padding: 0.5rem 0;
+      font-size: 1rem;
+    }
+
+    /* Línea principal (rayita) */
+    .navegacion a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0%;
+      background-color: cyan;
+      transition: width 0.4s ease;
+      box-shadow: none;
+    }
+
+    /* Reflejo debajo de la rayita */
+    .navegacion a::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(to bottom, rgba(0,255,255,0.4), transparent);
+      transition: width 0.4s ease;
+      filter: blur(3px);
+      opacity: 0.6;
+    }
+
+    /* Hover: activar animación y mostrar rayita */
+    .navegacion a:hover {
+      color: cyan;
+    }
+
+    .navegacion a:hover::after {
+      width: 100%;
+      animation: brilloPulse 1.5s infinite alternate;
+    }
+
+    .navegacion a:hover::before {
+      width: 100%;
+      animation: reflejoPulse 1.5s infinite alternate;
+    }
+
+    /* Animación de brillo fuerte con colores */
+    @keyframes brilloPulse {
+      0%, 100% {
+        box-shadow:
+          0 0 10px cyan,
+          0 0 20px lime,
+          0 0 40px aqua,
+          0 0 60px blue,
+          0 0 80px fuchsia;
+      }
+      50% {
+        box-shadow:
+          0 0 30px white,
+          0 0 60px cyan,
+          0 0 90px magenta,
+          0 0 120px teal,
+          0 0 150px blue;
+      }
+    }
+
+   
+
+    /* Mobile: mantener visible el efecto */
+    @media (max-width: 768px) {
+      .navegacion a::after,
+      .navegacion a::before {
+        width: 100%;
+        animation: brilloPulse 1.5s infinite alternate;
+      }
+    }
+
+    h3{
+      margin: 10px 0 5px;
+      font-size: 22px;
+      color: #333;
+    }
+
+    section h5 {
+      margin: 5px 0;
+      font-size: 18px;
+      color: #555;
+    }
+
+   
+ section h5:first-of-type {
+      text-decoration: line-through;
+      color: #999;
+    }
+  section h5.precio-antes {
+  text-decoration: line-through;
+  color: #999;
+}
+
+
+    
+
+    /*cronometro*/
+
+     .cronometro {
+      display: inline-flex;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      background: #f0f0f0;
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+
+    h6{
+      margin: 0 0 5px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .cronometro img {
+      width: 24px;
+      height: 24px;
+      margin-right: 6px;
+    }
+
+    .cronometro span#tiempo {
+      font-size: 18px;
+      font-weight: bold;
+      color: #d9534f;
+    }
+
+    .cronometro-time {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    

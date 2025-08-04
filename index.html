@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tienda Online</title>
+  <link rel="stylesheet" href="index.css"/>
+  <link rel="stylesheet" href="./mensaje .css">
+  <script src="./index.js"></script>
+  <title>Buscar Productos de Tecnología | MiEmpresa</title>
+  <meta name="description" content="Encuentra los mejores productos tecnológicos. Usa nuestro buscador y resuelve tus dudas por WhatsApp.">
+  <link rel="icon" type="image/png" href="/logo.png" />
+<link rel="icon" type="image/png" href="https://glittering-narwhal-56cf17.netlify.app/logo.png" />
+
+
+  <style>
+
+    .social-icons a:hover {
+    transform: scale(1.2);
+  }
+
+  .social-icons a.instagram:hover {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    color: white;
+  }
+
+  .social-icons a.facebook:hover {
+    background-color: #3b5998;
+    color: white;
+  }
+
+  .social-icons a.twitter:hover {
+    background-color: #1da1f2;
+    color: white;
+  }
+
+  .social-icons a.whatsapp:hover {
+    background-color: #25D366
+;
+    color: white;
+  }
+
+  /* Iconos SVG */
+  .social-icons svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+
+  /* Pie de página texto */
+  footer small {
+    font-size: 0.85rem;
+    color: #bbb;
+  }
+
+  footer {
+    background: #222;
+    padding: 20px 0;
+    text-align: center;
+    color: #eee;
+  }
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 8px;
+  }
+
+  .social-icons a {
+    color: #eee;
+    text-decoration: none;
+    font-size: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    background-color: transparent;
+  }
+
+    /* CSS mínimo para sugerencias */
+    .search-container {
+      position: relative;
+      width: 300px;
+    }
+ .search-container {
+  position: relative;
+  width: 350px; /* o lo que necesites */
+  display: flex;
+  align-items: center;
+  gap: 8px; /* espacio entre input y botón */
+}
+
+#buscador {
+  flex: 1; /* para que el input tome todo el ancho posible */
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+#btnbuscar {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+/* Contenedor de sugerencias posicionado debajo del input */
+#suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: calc(100% - 90px); /* resto del ancho del botón (ajusta según botón) */
+  background: white;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 10;
+  color: black;
+  border-radius: 10px;
+  /* Sin borde visible */
+  /* border: none; */
+}
+
+.suggestion {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestion:hover {
+  color: cyan;
+}
+
+/* Fondo semitransparente detrás del modal */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 999;
+}
+
+/* Modal empresarial oscuro */
+.hola {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1f1f1f; /* Gris oscuro elegante */
+  color: #f1f1f1; /* Texto claro para contraste */
+  padding: 30px 40px;
+  border-radius: 12px;
+  border: 1px solid #333; /* Borde sutil */
+  box-shadow:
+    0 0 20px rgba(79, 195, 247, 0.4), /* Glow azul eléctrico */
+    0 4px 20px rgba(0, 0, 0, 0.4); /* Sombra suave */
+  text-align: center;
+  z-index: 1000;
+  width: 90%;
+  max-width: 400px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hola p {
+  margin: 0 0 20px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.hola button {
+  background-color: #4fc3f7; /* Azul eléctrico saludable */
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hola button:hover {
+  background-color: #039be5;
+  box-shadow: 0 0 10px rgba(79, 195, 247, 0.7);
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="busqueda">
+      
+      <img class="imgheader"oncontextmenu="return false;" draggable="false"  src="./logo.png" alt="Logo"/>
+      <div class="busquedagrupo search-container">
+        <input type="text" id="buscador" placeholder="Listo para lo que necesites"/>
+        <div id="suggestions"></div>
+        <button id="btnbuscar">Buscar</button>
+      </div>
+    </div>
+    <nav class="navegacion" >
+      <ul>
+        <li><a href="./computadoras.html">Computadoras</a></li>
+        <li><a href="./celulares.html">Celulares</a></li>
+        <li><a href="./accesorios.html">Accesorios</a></li>
+        <li><a href="./presentacion/presentacion.html">Sobre Nosotros</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <h1>Tienda Online</h1>
+
+  <main class="contenedor">
+    <section data-product="iphone">
+      <img src="./iphone.jpeg" id="productImage" alt="Producto 1"/>
+      <h3>Iphone 16</h3>
+      <H5>antes: 16000</H5>
+      <h5>ahora: 14750</h5>
+      <div id="cronometro" class="cronometro">
+        <h6>Oferta con tiempo limitado en:</h6>
+    <img src="https://cdn-icons-png.flaticon.com/512/992/992700.png" alt="Reloj">
+    <span id="tiempo">01:00:00</span>
+  </div>
+      <div class="botones">
+        <button class="mas" data-id="iphone16">Ver más</button>
+        <button  onclick="buyProduct(this)"  class="compras">Comprar</button>
+      </div>
+    </section>
+
+    <section data-product="motoedge50">
+  <img src="./moto edge 50.jpeg" alt="Producto 2"/>
+  <h3>Moto Edge 50</h3>
+  <h5>antes: 12000</h5>
+  <h5>ahora: 11500</h5>
+  <div class="cronometro">
+    <h6>Oferta con tiempo limitado en:</h6>
+    <img src="https://cdn-icons-png.flaticon.com/512/992/992700.png" alt="Reloj" />
+    <span id="tiempo">00d 00:00:00</span>
+  </div>
+  <div class="botones">
+    <button class="mas" data-id="motoedge50">Ver más</button>
+    <button onclick="buyProduct(this)" class="compras">Comprar</button>
+  </div>
+</section>
+
+
+    <section>
+      <img src="./auriculares.webp" id="productImage"  alt="Producto 3"/>
+      <h3 id="productName">Auriculares Inalambricos</h3>
+      <div class="botones">
+        <button class="mas" data-id="auriculares">Ver más</button>
+        <button  onclick="buyProduct(this)"  class="compras">Comprar</button>
+      </div>
+    </section>
+
+    <section>
+      <img class="arreglosimg" id="productImage"  src="./pc original t14.jpeg" alt="Producto 4"/>
+      <h3 id="productName">Lenovo T14 G2</h3>
+      <div class="botones">
+        <button class="mas" data-id="lenovoT14">Ver más</button>
+        <button class="compras" onclick="buyProduct(this)" >Comprar</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Fondo oscuro (opcional) -->
+<div id="overlay" class="overlay" style="display: none;"></div>
+
+<!-- Modal -->
+<div id="customAlert" class="hola" style="display: none;">
+  <p>Producto no encontrado <h5>consulte a nuestro whatsapp</h5></p>
+  
+  <button onclick="closeCustomAlert()">Cerrar</button>
+</div>
+
+ <div id="overlay" class="overlay" style="display: none;"></div>
+
+<!-- Modal empresarial -->
+<div id="vacio" class="hola" style="display: none;">
+  <p>Se le solicita completar el campo de nuestro buscador</p>
+  <h5>Consulte a nuestro WhatsApp cualquier consulta</h5>
+  <button onclick="cerrarcampocero()">Cerrar</button>
+</div>
+
+
+
+
+  <footer>
+  <div class="social-icons" role="navigation" aria-label="Redes sociales">
+    <a href="https://www.instagram.com/tu_usuario" target="_blank" rel="noopener" class="instagram" aria-label="Instagram">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M7.75 2A5.75 5.75 0 002 7.75v8.5A5.75 5.75 0 007.75 22h8.5A5.75 5.75 0 0022 16.25v-8.5A5.75 5.75 0 0016.25 2h-8.5zm0 2h8.5A3.75 3.75 0 0120 7.75v8.5a3.75 3.75 0 01-3.75 3.75h-8.5A3.75 3.75 0 014 16.25v-8.5A3.75 3.75 0 017.75 4zm4.25 2.5a4.75 4.75 0 100 9.5 4.75 4.75 0 000-9.5zm0 2a2.75 2.75 0 110 5.5 2.75 2.75 0 010-5.5zm3.5-.5a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z"/>
+      </svg>
+    </a>
+    <a href="https://www.facebook.com/tu_usuario" target="_blank" rel="noopener" class="facebook" aria-label="Facebook">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M22 12.073C22 6.477 17.523 2 12 2S2 6.477 2 12.073c0 5.015 3.676 9.166 8.438 9.93v-7.03H7.898v-2.9h2.54v-2.214c0-2.506 1.492-3.89 3.778-3.89 1.094 0 2.238.195 2.238.195v2.463h-1.26c-1.243 0-1.63.772-1.63 1.562v1.884h2.773l-.443 2.9h-2.33v7.03C18.324 21.24 22 17.088 22 12.073z"/>
+      </svg>
+    </a>
+    <a href="https://twitter.com/tu_usuario" target="_blank" rel="noopener" class="twitter" aria-label="Twitter">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M23 3a10.9 10.9 0 01-3.14.86A4.48 4.48 0 0022.4.36a9.07 9.07 0 01-2.88 1.1 4.52 4.52 0 00-7.71 4.12 12.84 12.84 0 01-9.3-4.71 4.48 4.48 0 001.4 6.03A4.41 4.41 0 012 9.7v.05a4.52 4.52 0 003.63 4.43 4.5 4.5 0 01-2.04.08 4.52 4.52 0 004.22 3.13 9 9 0 01-5.6 1.93A8.82 8.82 0 012 19.54a12.7 12.7 0 006.88 2.01c8.26 0 12.78-6.84 12.78-12.77 0-.2 0-.42-.01-.63A9.18 9.18 0 0023 3z"/>
+      </svg>
+    </a>
+    <a href="https://wa.me/506XXXXXXXX" target="_blank" rel="noopener" class="whatsapp" aria-label="WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" fill="currentColor">
+    <path d="M16.001 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.264.595 4.47 1.72 6.408L3.2 28.8l6.58-1.716c1.847 1.008 3.92 1.52 6.22 1.52 7.06 0 12.8-5.74 12.8-12.8s-5.74-12.8-12.8-12.8zm0 23.2c-1.947 0-3.838-.54-5.49-1.557l-.393-.237-3.9 1.016 1.04-3.792-.254-.408c-1.076-1.727-1.643-3.72-1.643-5.822 0-6.014 4.887-10.9 10.9-10.9 6.014 0 10.9 4.887 10.9 10.9 0 6.014-4.887 10.9-10.9 10.9zm5.613-8.13c-.308-.154-1.827-.9-2.11-1.002-.282-.103-.49-.154-.698.154-.208.308-.8 1.002-.982 1.21-.182.206-.364.231-.672.077-.308-.154-1.302-.48-2.48-1.526-.918-.819-1.538-1.83-1.716-2.138-.18-.308-.02-.474.135-.627.138-.136.308-.355.462-.532.154-.18.205-.308.308-.514.102-.205.051-.385-.026-.539-.077-.154-.698-1.685-.955-2.314-.252-.605-.51-.524-.698-.532h-.597c-.206 0-.54.077-.823.385-.282.308-1.077 1.052-1.077 2.565s1.102 2.974 1.255 3.18c.154.205 2.163 3.296 5.238 4.625.732.315 1.304.503 1.75.643.735.234 1.403.201 1.93.123.59-.088 1.827-.748 2.087-1.47.257-.72.257-1.338.18-1.47-.077-.133-.282-.206-.59-.36z"/>
+  </svg>
+</a>
+
+
+    
+  </div>
+  <small>© 2025 VITASALUD. COndiciones en nuestras redes sociales.</small>
+</footer>
+
+  <script>
+    function cerrarcampocero() {
+  document.getElementById("vacio").style.display = "none";
+  document.getElementById("overlay").style.display = "none";
+}
+    
+
+
+    function showCustomAlert() {
+      document.getElementById("customAlert").style.display = "block";
+    }
+
+    function closeCustomAlert() {
+      document.getElementById("customAlert").style.display = "none";
+    }
+
+    
+    // Lista de productos (nombres)
+    const data = [
+      "Iphone 16",
+      "Moto Edge 50",
+      "Auriculares Inalambricos",
+      "Lenovo T14 G2"
+    ];
+
+    const input = document.getElementById('buscador');
+    const suggestionsContainer = document.getElementById('suggestions');
+    const btnBuscar = document.getElementById('btnbuscar');
+
+    // Mostrar sugerencias según lo que escribes
+    input.addEventListener('input', function() {
+      const query = this.value.toLowerCase();
+      suggestionsContainer.innerHTML = '';
+
+      if (query.length === 0) return;
+
+      const filtered = data.filter(item => item.toLowerCase().includes(query));
+
+      filtered.forEach(item => {
+        const div = document.createElement('div');
+        div.classList.add('suggestion');
+        div.textContent = item;
+        div.addEventListener('click', function() {
+          input.value = item;
+          suggestionsContainer.innerHTML = '';
+        });
+        suggestionsContainer.appendChild(div);
+      });
+    });
+
+    // Función para buscar y redirigir
+    function search() {
+      const query = input.value.trim().toLowerCase();
+      const modal = document.getElementById("vacio");
+  const overlay = document.getElementById("overlay");
+
+      if (query === "") {
+         modal.style.display = "block";
+    overlay.style.display = "block";
+      }
+
+      // Productos que son teléfonos
+      const telefonos = ["iphone 16", "moto edge 50"];
+      // Productos que son PC
+      const pcs = ["lenovo t14 g2"];
+
+      if (telefonos.includes(query)) {
+        window.location.href = "./carpetasocultas/dolores.html";
+      } else if (pcs.includes(query)) {
+        window.location.href = "computadoras.html";
+      } else {
+        showCustomAlert();
+      }
+    }
+    
+
+    // Buscar con botón
+    btnBuscar.addEventListener('click', search);
+
+    // Buscar con Enter
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        search();
+      }
+    });
+
+    // Cerrar sugerencias al hacer clic fuera
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.search-container')) {
+        suggestionsContainer.innerHTML = '';
+      }
+    });
+
+    //comprar
+
+    function buyProduct(el) {
+  const section = el.closest('section');
+  const productName = section.querySelector('h3').textContent.trim();
+  const productImage = section.querySelector('img').src; // Esto debe ser URL absoluta
+
+  const phoneNumber = "50661824708"; // Cambia por tu número con código país
+  const siteBaseUrl = "https://glittering-churros-8e0a14.netlify.app"; // Tu URL pública real
+
+  // Aquí armar el link a la página para mostrar imagen
+  const imageViewUrl = `${siteBaseUrl}/paginavisita.html?img=${encodeURIComponent(productImage)}`;
+
+  const message = encodeURIComponent(`Hola, quiero comprar: ${productName}\nVer imagen: ${imageViewUrl}`);
+  const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+
+  window.open(whatsappURL, '_blank');
+}
+
+//cronometro Elementos clave
+  // Función para iniciar cronómetros en todos los productos
+function iniciarCronometros() {
+  // Fechas/hora fin para cada producto (ajusta aquí)
+  const fechasFinPorProducto = {
+    'iphone': { year: 2025, month: 6, day: 10, hour: 18, minute: 47, second: 0 },
+    'motoedge50': { year: 2025, month: 6, day: 10, hour: 18, minute: 47, second: 20 },
+    // Agrega más productos si quieres...
+  };
+
+  // Selecciona todas las secciones con data-product
+  const sections = document.querySelectorAll('section[data-product]');
+
+  sections.forEach(section => {
+    const productoId = section.getAttribute('data-product');
+    const fechaFinCfg = fechasFinPorProducto[productoId];
+
+    if (!fechaFinCfg) {
+      console.warn(`No hay fecha configurada para ${productoId}`);
+      return;
+    }
+
+    const tiempoElemento = section.querySelector('.cronometro span');
+    const cronometroElemento = section.querySelector('.cronometro');
+    const precioAntes = section.querySelector('h5:first-of-type');
+    const precioAhora = section.querySelector('h5:nth-of-type(2)');
+
+    const finOferta = new Date(
+      fechaFinCfg.year,
+      fechaFinCfg.month,
+      fechaFinCfg.day,
+      fechaFinCfg.hour,
+      fechaFinCfg.minute,
+      fechaFinCfg.second
+    ).getTime();
+
+    function formatoTiempo(segundos) {
+      const dias = Math.floor(segundos / 86400);
+      const hrs = Math.floor((segundos % 86400) / 3600);
+      const mins = Math.floor((segundos % 3600) / 60);
+      const secs = segundos % 60;
+      return `${dias}d ${hrs.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+    }
+
+    function actualizarCronometro() {
+      const ahora = Date.now();
+      const restanteMs = finOferta - ahora;
+      const restanteSegundos = Math.max(0, Math.floor(restanteMs / 1000));
+
+      if (tiempoElemento) tiempoElemento.textContent = formatoTiempo(restanteSegundos);
+
+      
+    }
+
+    actualizarCronometro();
+    const intervalo = setInterval(actualizarCronometro, 1000);
+  });
+}
+
+iniciarCronometros();
+
+
+  </script>
+</body>
+</html>
