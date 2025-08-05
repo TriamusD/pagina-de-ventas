@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tienda Online</title>
+  <style>
+    /* ======== ESTILOS GENERALES ======== */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0 20px;
+      background: #f5f5f5;
+    }
+
+    header {
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .busqueda {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .imgheader {
+      width: 100px;
+      height: auto;
+    }
+
+    .busquedagrupo {
+      position: relative;
+      width: 300px;
+    }
+
+    #buscador {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    #btnbuscar {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #btnbuscar:hover {
+      background: #0056b3;
+    }
+
+    .suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid #ddd;
+      max-height: 150px;
+      overflow-y: auto;
+      z-index: 10;
+    }
+
+    .suggestion {
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    .suggestion:hover {
+      background: #f0f0f0;
+    }
+
+    nav.navegacion {
+      margin-top: 10px;
+    }
+
+    nav.navegacion ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav.navegacion a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    nav.navegacion a:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 40px 0 20px;
+    }
+
+    main.contenedor {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    main section {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    main section img {
+      max-width: 100%;
+      border-radius: 4px;
+    }
+
+    .botones {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .botones button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .mas {
+      background: #28a745;
+      color: #fff;
+    }
+
+    .compras {
+      background: #ffc107;
+      color: #333;
+    }
+
+    .mas:hover {
+      background: #218838;
+    }
+
+    .compras:hover {
+      background: #e0a800;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="busqueda">
+      <img class="imgheader" src="./logo.png" alt="Logo"/>
+      <div class="busquedagrupo search-container">
+        <input type="text" id="buscador" placeholder="Listo para lo que necesites"/>
+        <div id="suggestions" class="suggestions"></div>
+        <button id="btnbuscar">Buscar</button>
+      </div>
+    </div>
+    <nav class="navegacion">
+      <ul>
+        <li><a href="./computadoras.html">Computadoras</a></li>
+        <li><a href="./celulares.html">Celulares</a></li>
+        <li><a href="./accesorios.html">Accesorios</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <h1>Tienda Online</h1>
+
+  <main class="contenedor">
+    <section>
+      <img src="./iphone.jpeg" alt="Producto 1"/>
+      <h3>Iphone 16</h3>
+      <div class="botones">
+        <button class="mas" data-id="iphone16">Ver más</button>
+        <button class="compras">Comprar</button>
+      </div>
+    </section>
+
+    <section>
+      <img src="./moto edge 50.jpeg" alt="Producto 2"/>
+      <h3>Moto Edge 50</h3>
+      <div class="botones">
+        <button class="mas" data-id="motoedge50">Ver más</button>
+        <button class="compras">Comprar</button>
+      </div>
+    </section>
+
+    <section>
+      <img src="./auriculares.webp" alt="Producto 3"/>
+      <h3>Auriculares Inalámbricos</h3>
+      <div class="botones">
+        <button class="mas" data-id="auriculares">Ver más</button>
+        <button class="compras">Comprar</button>
+      </div>
+    </section>
+
+    <section>
+      <img class="arreglosimg" src="./pc original t14.jpeg" alt="Producto 4"/>
+      <h3>Lenovo T14 G2</h3>
+      <div class="botones">
+        <button class="mas" data-id="lenovoT14">Ver más</button>
+        <button class="compras">Comprar</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const data = [
+        "Iphone 16",
+        "Moto Edge 50",
+        "Auriculares Inalambricos",
+        "Lenovo T14 G2"
+      ];
+
+      const input = document.getElementById('buscador');
+      const suggestionsContainer = document.getElementById('suggestions');
+      const btnBuscar = document.getElementById('btnbuscar');
+
+      // Autocompletar
+      input.addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        suggestionsContainer.innerHTML = '';
+
+        if (query.length === 0) return;
+
+        const filtered = data.filter(item => item.toLowerCase().includes(query));
+
+        filtered.forEach(item => {
+          const div = document.createElement('div');
+          div.classList.add('suggestion');
+          div.textContent = item;
+          div.addEventListener('click', function() {
+            input.value = item;
+            suggestionsContainer.innerHTML = '';
+          });
+          suggestionsContainer.appendChild(div);
+        });
+      });
+
+      // Buscar función
+      function search() {
+        const query = input.value.trim().toLowerCase();
+
+        if (query.includes("iphone")) {
+          window.location.href = "computadoras.html";
+        } else if (query.includes("moto")) {
+          window.location.href = "celulares.html";
+        } else if (query.includes("auriculares")) {
+          window.location.href = "accesorios.html";
+        } else if (query.includes("lenovo")) {
+          window.location.href = "computadoras.html";
+        } else {
+          alert("Producto no encontrado");
+        }
+      }
+
+      // Botón Buscar
+      btnBuscar.addEventListener('click', search);
+
+      // Buscar con Enter
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          search();
+        }
+      });
+
+      // Cerrar sugerencias al hacer clic fuera
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.search-container')) {
+          suggestionsContainer.innerHTML = '';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

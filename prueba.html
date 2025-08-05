@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Presentación con Header y Footer</title>
+<style>
+  /* Reset básico */
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0078d7;
+    color: white;
+    padding: 18px 0;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+
+  /* CONTENEDOR PRINCIPAL */
+  main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+  }
+
+  /* SLIDER */
+  .slider-container {
+    width: 360px;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    background: white;
+    position: relative;
+  }
+
+  .slider-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .slide {
+    min-width: 360px;
+    box-sizing: border-box;
+    padding: 30px 25px;
+    text-align: center;
+  }
+
+  .slide img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .slide img:hover {
+    transform: scale(1.05);
+  }
+
+  .slide h2 {
+    margin: 0 0 10px;
+    color: #222;
+    font-size: 1.5rem;
+  }
+
+  .slide p {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  /* CONTROLES DEL SLIDER */
+  .controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  button.control-btn {
+    background: rgba(0,0,0,0.05);
+    border: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: all;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.25s ease;
+  }
+
+  button.control-btn:hover {
+    background: rgba(0,0,0,0.15);
+  }
+
+  button.control-btn:focus {
+    outline: 2px solid #0078d7;
+  }
+
+  button.control-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: #444;
+  }
+
+  /* INDICADORES DEL SLIDER */
+  .indicators {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: #bbb;
+    border-radius: 50%;
+    margin: 0 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .indicator.active {
+    background: #0078d7;
+  }
+
+  .indicator:hover {
+    background: #005fa3;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #222;
+    padding: 20px 0;
+    text-align: center;
+    color: #eee;
+  }
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 8px;
+  }
+
+  .social-icons a {
+    color: #eee;
+    text-decoration: none;
+    font-size: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    background-color: transparent;
+  }
+
+  /* Animación y colores por red social */
+  .social-icons a:hover {
+    transform: scale(1.2);
+  }
+
+  .social-icons a.instagram:hover {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    color: white;
+  }
+
+  .social-icons a.facebook:hover {
+    background-color: #3b5998;
+    color: white;
+  }
+
+  .social-icons a.twitter:hover {
+    background-color: #1da1f2;
+    color: white;
+  }
+
+  .social-icons a.linkedin:hover {
+    background-color: #0077b5;
+    color: white;
+  }
+
+  /* Iconos SVG */
+  .social-icons svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+
+  /* Pie de página texto */
+  footer small {
+    font-size: 0.85rem;
+    color: #bbb;
+  }
+
+  /* ANIMACIÓN AUTOMÁTICA EN MÓVIL */
+
+  @media (max-width: 600px) {
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+      }
+      50% {
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 6px rgba(0,0,0,0.3));
+      }
+    }
+
+    .social-icons a {
+      animation: pulse 2.5s ease-in-out infinite;
+      /* Para escalonar las animaciones y que no pulse todo igual */
+    }
+
+    /* Escalonar animación para cada icono */
+    .social-icons a:nth-child(1) {
+      animation-delay: 0s;
+    }
+    .social-icons a:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+    .social-icons a:nth-child(3) {
+      animation-delay: 1s;
+    }
+    .social-icons a:nth-child(4) {
+      animation-delay: 1.5s;
+    }
+
+    /* Quitar hover scaling en móvil para evitar conflicto */
+    .social-icons a:hover {
+      transform: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+    <img class="imgheader" src="./logo.png" alt="Logo"/>
+    <h1>Conoce a Nuestro Equipo</h1>
+    <p>Somos un grupo de profesionales dedicados a impulsar su salud.</p>
+  </header>
+
+<main>
+  <div class="slider-container" aria-label="Presentación de personajes">
+    <div class="slider-track" id="sliderTrack">
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="Personaje 1">
+        <img src="./presentacion/yubeylin.jpeg" alt="Foto de Juan, personaje del negocio" />
+        <h2>Juan Pérez</h2>
+        <p>Fundador y Director General, experto en estrategia y liderazgo.</p>
+      </div>
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="Personaje 2">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Foto de Ana, personaje del negocio" />
+        <h2>Ana García</h2>
+        <p>Directora de Marketing, especialista en comunicación y branding.</p>
+      </div>
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="Personaje 3">
+        <img src="./auriculares.webp" alt="Foto de Carlos, personaje del negocio" />
+        <h2>Carlos Martínez</h2>
+        <p>Jefe de Tecnología, apasionado por innovación y desarrollo.</p>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="control-btn" id="prevBtn" aria-label="Personaje anterior">
+        <svg viewBox="0 0 20 20"><path d="M13 15l-5-5 5-5" /></svg>
+      </button>
+      <button class="control-btn" id="nextBtn" aria-label="Personaje siguiente">
+        <svg viewBox="0 0 20 20"><path d="M7 5l5 5-5 5" /></svg>
+      </button>
+    </div>
+
+    <div class="indicators" role="tablist" aria-label="Indicadores de personajes">
+      <span class="indicator active" role="tab" tabindex="0" aria-selected="true" aria-controls="slide1"></span>
+      <span class="indicator" role="tab" tabindex="-1" aria-selected="false" aria-controls="slide2"></span>
+      <span class="indicator" role="tab" tabindex="-1" aria-selected="false" aria-controls="slide3"></span>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="social-icons" role="navigation" aria-label="Redes sociales">
+    <a href="https://www.instagram.com/tu_usuario" target="_blank" rel="noopener" class="instagram" aria-label="Instagram">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M7.75 2A5.75 5.75 0 002 7.75v8.5A5.75 5.75 0 007.75 22h8.5A5.75 5.75 0 0022 16.25v-8.5A5.75 5.75 0 0016.25 2h-8.5zm0 2h8.5A3.75 3.75 0 0120 7.75v8.5a3.75 3.75 0 01-3.75 3.75h-8.5A3.75 3.75 0 014 16.25v-8.5A3.75 3.75 0 017.75 4zm4.25 2.5a4.75 4.75 0 100 9.5 4.75 4.75 0 000-9.5zm0 2a2.75 2.75 0 110 5.5 2.75 2.75 0 010-5.5zm3.5-.5a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z"/>
+      </svg>
+    </a>
+    <a href="https://www.facebook.com/tu_usuario" target="_blank" rel="noopener" class="facebook" aria-label="Facebook">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M22 12.073C22 6.477 17.523 2 12 2S2 6.477 2 12.073c0 5.015 3.676 9.166 8.438 9.93v-7.03H7.898v-2.9h2.54v-2.214c0-2.506 1.492-3.89 3.778-3.89 1.094 0 2.238.195 2.238.195v2.463h-1.26c-1.243 0-1.63.772-1.63 1.562v1.884h2.773l-.443 2.9h-2.33v7.03C18.324 21.24 22 17.088 22 12.073z"/>
+      </svg>
+    </a>
+    <a href="https://twitter.com/tu_usuario" target="_blank" rel="noopener" class="twitter" aria-label="Twitter">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M23 3a10.9 10.9 0 01-3.14.86A4.48 4.48 0 0022.4.36a9.07 9.07 0 01-2.88 1.1 4.52 4.52 0 00-7.71 4.12 12.84 12.84 0 01-9.3-4.71 4.48 4.48 0 001.4 6.03A4.41 4.41 0 012 9.7v.05a4.52 4.52 0 003.63 4.43 4.5 4.5 0 01-2.04.08 4.52 4.52 0 004.22 3.13 9 9 0 01-5.6 1.93A8.82 8.82 0 012 19.54a12.7 12.7 0 006.88 2.01c8.26 0 12.78-6.84 12.78-12.77 0-.2 0-.42-.01-.63A9.18 9.18 0 0023 3z"/>
+      </svg>
+    </a>
+    <a href="https://www.linkedin.com/in/tu_usuario" target="_blank" rel="noopener" class="linkedin" aria-label="LinkedIn">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M20.447 20.452H16.9v-5.569c0-1.327-.026-3.034-1.85-3.034-1.85 0-2.134 1.445-2.134 2.938v5.665h-3.55V9h3.41v1.561h.05c.474-.9 1.632-1.85 3.358-1.85 3.595 0 4.258 2.366 4.258 5.444v6.297zM5.337 7.433c-1.144 0-2.07-.927-2.07-2.07a2.07 2.07 0 014.14 0c0 1.143-.926 2.07-2.07 2.07zm1.777 13.02H3.56V9h3.554v11.453z"/>
+      </svg>
+    </a>
+  </div>
+  <small>© 2025 VITASALUD. COndiciones en nuestras redes sociales.</small>
+</footer>
+
+<script>
+  const sliderTrack = document.getElementById('sliderTrack');
+  const slides = sliderTrack.children;
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const indicators = document.querySelectorAll('.indicator');
+  const slideCount = slides.length;
+  const slideWidth = slides[0].offsetWidth;
+
+  let currentIndex = 0;
+  let autoSlideInterval = null;
+  const autoSlideDelay = 6000;
+
+  function updateSlider() {
+    sliderTrack.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+    indicators.forEach((indicator, i) => {
+      indicator.classList.toggle('active', i === currentIndex);
+      indicator.setAttribute('aria-selected', i === currentIndex);
+      indicator.tabIndex = i === currentIndex ? 0 : -1;
+    });
+  }
+
+  function goToSlide(index) {
+    if (index < 0) {
+      currentIndex = slideCount -1;
+    } else if (index >= slideCount) {
+      currentIndex = 0;
+    } else {
+      currentIndex = index;
+    }
+    updateSlider();
+  }
+
+  function nextSlide() {
+    goToSlide(currentIndex + 1);
+  }
+
+  function prevSlide() {
+    goToSlide(currentIndex - 1);
+  }
+
+  nextBtn.addEventListener('click', () => {
+    nextSlide();
+    resetAutoSlide();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    prevSlide();
+    resetAutoSlide();
+  });
+
+  indicators.forEach((indicator, i) => {
+    indicator.addEventListener('click', () => {
+      goToSlide(i);
+      resetAutoSlide();
+    });
+    indicator.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') {
+        let next = (i + 1) % slideCount;
+        goToSlide(next);
+        indicators[next].focus();
+        resetAutoSlide();
+      } else if (e.key === 'ArrowLeft') {
+        let prev = (i - 1 + slideCount) % slideCount;
+        goToSlide(prev);
+        indicators[prev].focus();
+        resetAutoSlide();
+      }
+    });
+  });
+
+  function resetAutoSlide() {
+    if(autoSlideInterval) clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(nextSlide, autoSlideDelay);
+  }
+
+  // Inicia slider automático
+  updateSlider();
+  resetAutoSlide();
+
+  // Para reajustar ancho si ventana cambia (por si acaso)
+  window.addEventListener('resize', () => {
+    updateSlider();
+  });
+</script>
+
+</body>
+</html>

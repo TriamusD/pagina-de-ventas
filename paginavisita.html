@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vista de Imagen</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100vh;
+      background: radial-gradient(circle at center, #ffffff, #f4f4f4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 12px;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.25);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    img:hover {
+      transform: scale(1.03);
+    }
+    p {
+      color: #333;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <img id="imagen" src="" alt="Imagen del producto" />
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const imgUrl = params.get('img');
+    const imgElement = document.getElementById('imagen');
+
+    if (imgUrl) {
+      imgElement.src = imgUrl;
+    } else {
+      document.body.innerHTML = '<p>No se recibió ninguna imagen.</p>';
+    }
+
+    // Opcional: cerrar ventana o regresar al hacer clic en la imagen
+    imgElement.addEventListener('click', () => {
+      window.history.back();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tienda con WhatsApp</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 30px;
+    }
+
+    .product {
+      background: #fff;
+      padding: 20px;
+      max-width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      margin: auto;
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .product h2 {
+      margin: 15px 0;
+      font-size: 20px;
+    }
+
+    .product p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .buy-button {
+      background: #25d366;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      text-decoration: none;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="product">
+    <img id="productImage" src="./Acer 3 ryzen.jpg" alt="Producto">
+    <h2 id="productName">Producto Ejemplo</h2>
+    <p>$25.00</p>
+    <button class="buy-button" onclick="buyProduct()">Comprar por WhatsApp</button>
+  </div>
+
+  <script>
+    function buyProduct() {
+      const productName = document.getElementById('productName').textContent.trim();
+      const productImage = document.getElementById('productImage').src;
+      const phoneNumber = "61824708"; // ← Cambia por tu número con lada + país
+      const message = encodeURIComponent(`Hola, quiero comprar: ${productName}\nImagen: ${productImage}`);
+      const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+      window.open(whatsappURL, '_blank');
+    }
+  </script>
+
+</body>
+</html>
