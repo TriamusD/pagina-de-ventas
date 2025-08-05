@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<style>
+    body{
+        background: black;
+    }
+ /* Estilos base */
+.navbar ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+  
+}
+
+
+.navbar a {
+  text-decoration: none;
+  color: wheat;
+  position: relative;
+  padding: 0.5rem 0;
+  
+  
+}
+
+
+/* Efecto al pasar el mouse */
+.navbar a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background-color: teal;
+  transition: width 0.4s ease;
+}
+
+
+
+.navbar a:hover {
+  color: teal; /* cambio de color del texto */
+}
+
+.navbar a:hover::after {
+  width: 100%; /* la rayita aparece */
+  animation: brilloPulse 1s infinite alternate;
+  
+}
+
+@keyframes brilloPulse {
+  0%, 100% {
+    box-shadow: 0 0 10px green,
+                0 0 20px teal,
+                0 0 30px teal;
+  }
+  50% {
+    box-shadow: 0 0 25px blue,
+                0 0 45px green,
+                0 0 65px teal;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar a::after {
+    width: 100%; 
+
+  }
+}
+
+</style>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="">home</a></li>
+            <li><a href="">home</a></li>
+            <li><a href="">home</a></li>
+            <li><a href="">home</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

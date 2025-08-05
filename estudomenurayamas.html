@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Navbar Neon Reflejo</title>
+  <style>
+    body {
+      background: black;
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    /* Estilos base del navbar */
+    .navbar ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      justify-content: center;
+      height: 100vh;
+      align-items: center;
+    }
+    
+
+    .navbar a {
+      text-decoration: none;
+      color: wheat;
+      position: relative;
+      padding: 0.5rem 0;
+      font-size: 1rem;
+    }
+
+    /* Línea principal (rayita) */
+    .navbar a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0%;
+      background-color: cyan;
+      transition: width 0.4s ease;
+      box-shadow: none;
+    }
+
+    /* Reflejo debajo de la rayita */
+    .navbar a::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(to bottom, rgba(0,255,255,0.4), transparent);
+      transition: width 0.4s ease;
+      filter: blur(3px);
+      opacity: 0.6;
+    }
+
+    /* Hover: activar animación y mostrar rayita */
+    .navbar a:hover {
+      color: cyan;
+    }
+
+    .navbar a:hover::after {
+      width: 100%;
+      animation: brilloPulse 1.5s infinite alternate;
+    }
+
+    .navbar a:hover::before {
+      width: 100%;
+      animation: reflejoPulse 1.5s infinite alternate;
+    }
+
+    /* Animación de brillo fuerte con colores */
+    @keyframes brilloPulse {
+      0%, 100% {
+        box-shadow:
+          0 0 10px cyan,
+          0 0 20px lime,
+          0 0 40px aqua,
+          0 0 60px blue,
+          0 0 80px fuchsia;
+      }
+      50% {
+        box-shadow:
+          0 0 30px white,
+          0 0 60px cyan,
+          0 0 90px magenta,
+          0 0 120px teal,
+          0 0 150px blue;
+      }
+    }
+
+   
+
+    /* Mobile: mantener visible el efecto */
+    @media (max-width: 768px) {
+      .navbar a::after,
+      .navbar a::before {
+        width: 100%;
+        animation: brilloPulse 1.5s infinite alternate;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <ul>
+      <li><a href="#">Inicio</a></li>
+      <li><a href="#">Servicios</a></li>
+      <li><a href="#">Nosotros</a></li>
+      <li><a href="#">Contacto</a></li>
+    </ul>
+  </nav>
+</body>
+</html>

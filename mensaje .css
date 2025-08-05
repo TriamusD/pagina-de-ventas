@@ -1,0 +1,51 @@
+
+:root{
+  --primario:#0A192F;
+  --secundario:#00bfff;
+  --tercero:#6C5CE7;
+}
+/* Fondo oscuro tras modal */
+.modal-fondo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+  display: none; /* oculto por defecto */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Contenido del modal */
+.modal-contenido {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 320px;
+  width: 90%;
+  box-shadow: 0 4px 10px rgba(1,0,0.3);
+  position: relative;
+  animation: brillo 6s alternate infinite;
+}
+
+@keyframes brillo {
+  0%{box-shadow: 0 0 10px var(--tercero);}
+  50%{box-shadow: 0 0 20px var(--secundario);}
+  100%{box-shadow: 0 0 30px var(--primario);}
+
+
+}
+
+/* Botón cerrar */
+.modal-cerrar {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
